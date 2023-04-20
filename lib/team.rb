@@ -11,6 +11,4 @@ class Team
     @abbreviation = row[:abbreviation]
     @stadium      = row[:stadium]
   end
-
-  require 'pry'; binding.pry
 end
