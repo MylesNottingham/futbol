@@ -24,6 +24,7 @@ RSpec.describe StatTracker do
     end
   end
 
+  ### GAME STATS ###
   describe "#highest_total_score" do
     it "can find the highest total score" do
       expect(@stat_tracker.highest_total_score).to eq(11)
@@ -54,6 +55,7 @@ RSpec.describe StatTracker do
     end
   end
 
+  ### LEAGUE STATS ###
   describe "#count_of_teams" do
     it "can count the number of teams" do
       expect(@stat_tracker.count_of_teams).to eq(32)
@@ -69,6 +71,31 @@ RSpec.describe StatTracker do
   describe "#worst_offense" do
     it "can find the team with the worst offense" do
       expect(@stat_tracker.worst_offense).to eq("Utah Royals FC")
+    end
+  end
+
+  ### TEAM STATS ###
+
+  ### HELPER METHODS ###
+  describe "#total_games_played_by_team" do
+    it "can find the total number of games played by each team" do
+      expect(@stat_tracker.total_games_played_by_team).to be_a(Hash)
+      expect(@stat_tracker.total_games_played_by_team.count).to eq(32)
+      expect(@stat_tracker.total_games_played_by_team["28"]).to eq(516)
+    end
+  end
+
+  describe "#total_goals_by_team" do
+    it "can find the total number of goals scored by each team" do
+      expect(@stat_tracker.total_goals_by_team).to be_a(Hash)
+      expect(@stat_tracker.total_goals_by_team.count).to eq(32)
+      expect(@stat_tracker.total_goals_by_team["28"]).to eq(1128)
+    end
+  end
+
+  describe "#get_team_name" do
+    it "can find the team name from the team id" do
+      expect(@stat_tracker.get_team_name("28")).to eq("Los Angeles FC")
     end
   end
 end
