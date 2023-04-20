@@ -44,4 +44,22 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.percentage_ties).to eq(0.2)
     end
   end
+
+  describe "#count_of_teams" do
+    it "can count the number of teams" do
+      expect(@stat_tracker.count_of_teams).to eq(32)
+    end
+  end
+
+  describe "#best_offense" do
+    it "can find the team with the best offense" do
+      expect(@stat_tracker.best_offense).to eq("")
+    end
+  end
+
+  describe "#worst_offense" do
+    it "can find the team with the worst offense" do
+      expect(@stat_tracker.worst_offense).to eq("")
+    end
+  end
 end
