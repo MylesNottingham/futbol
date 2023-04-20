@@ -4,8 +4,9 @@ RSpec.describe StatTracker do
   before(:each) do
     @stat_tracker = StatTracker.from_csv(
       {
-        games: "./data/games.csv",
-        teams: "./data/teams.csv"
+        games:      "./data/games.csv",
+        teams:      "./data/teams.csv",
+        game_teams: "./data/game_teams.csv"
       }
     )
   end
@@ -21,6 +22,12 @@ RSpec.describe StatTracker do
       expect(@stat_tracker).to be_a(StatTracker)
       expect(@stat_tracker.teams).to be_an(Array)
       expect(@stat_tracker.teams.count).to eq(32)
+    end
+
+    it "can initialize with game teams" do
+      expect(@stat_tracker).to be_a(StatTracker)
+      expect(@stat_tracker.game_teams).to be_an(Array)
+      expect(@stat_tracker.game_teams.count).to eq(14882)
     end
   end
 
