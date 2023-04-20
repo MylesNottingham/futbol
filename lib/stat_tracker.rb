@@ -70,13 +70,13 @@ class StatTracker
       team_goals[game.away_team_id] += game.away_goals
     end
 
-    best_offense = team_games.max_by do |team_id, games|
-      team_goals[team_id] / games
+    best_offense_id = team_games.max_by do |team_id, games|
+      team_goals[team_id] / games.to_f
     end[0]
 
     @teams.find do |team|
-      team.team_id == best_offense
-    end
+      team.id == best_offense_id
+    end.name
   end
 
   def worst_offense
@@ -90,13 +90,13 @@ class StatTracker
       team_goals[game.away_team_id] += game.away_goals
     end
 
-    worst_offense = team_games.min_by do |team_id, games|
-      team_goals[team_id] / games
+    worst_offense_id = team_games.min_by do |team_id, games|
+      team_goals[team_id] / games.to_f
     end[0]
 
     @teams.find do |team|
-      team.team_id == worst_offense
-    end
+      team.id == worst_offense_id
+    end.name
   end
 
   ### TEAM STATS ###
