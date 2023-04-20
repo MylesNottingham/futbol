@@ -53,5 +53,49 @@ class StatTracker
   end
 
   ### LEAGUE STATS ###
+  def count_of_teams
+    @teams.count
+  end
+
+  def best_offense
+    team_games = Hash.new(0)
+    team_goals = Hash.new(0)
+
+    @games.each do |game|
+      team_games[game.home_team_id] += 1
+      team_games[game.away_team_id] += 1
+      team_goals[game.home_team_id] += game.home_goals
+      team_goals[game.away_team_id] += game.away_goals
+    end
+
+    best_offense = team_games.max_by do |team_id, games|
+      team_goals[team_id] / games
+    end[0]
+
+    @teams.find do |team|
+      team.team_id == best_offense
+    end
+  end
+
+  def worst_offense
+    team_games = Hash.new(0)
+    team_goals = Hash.new(0)
+
+    @games.each do |game|
+      team_games[game.home_team_id] += 1
+      team_games[game.away_team_id] += 1
+      team_goals[game.home_team_id] += game.home_goals
+      team_goals[game.away_team_id] += game.away_goals
+    end
+
+    worst_offense = team_games.min_by do |team_id, games|
+      team_goals[team_id] / games
+    end[0]
+
+    @teams.find do |team|
+      team.team_id == worst_offense
+    end
+  end
+
   ### TEAM STATS ###
 end
