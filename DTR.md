@@ -11,9 +11,8 @@ DTR with your team BEFORE you begin work
 Return to the DTR at the end of your first working session
 Return to your DTR any time you come into a team conflict
 
-### BEFORE YOU START THE PROJECT
+### BEFORE YOU START THE PROJECT **DTR: Essential Questions to Discuss**
 
-**DTR: Essential Questions to Discuss**
 *What are your learning goals for the project?*
 
 - Matt: learn how to work collaboratively in github with multiple people
@@ -105,7 +104,8 @@ Return to your DTR any time you come into a team conflict
 - GG: Live syncs, huddles
 
 *When will we check in again about our process and progress?*
-Thu, March 20 @ 11a MT
+
+- Thu, March 20 @ 11a MT
 
 *How do you know if a project is successful?*
 *How can we achieve success as a group?*
@@ -130,19 +130,17 @@ Thu, March 20 @ 11a MT
   - Project Management: Javen
   - Readme: Garrett
   - Github Repo: Myles
-  - Everything else: Matttttttttttttt
+  - Retro Manager: Matthew Lim
 
 ## Conventions
 
-**Rubocop**
-Double or single quotes?
-Anything else?
+- **Rubocop**
 
-### Naming conventions:
+### Naming conventions
 
 - Begin the commit message with the type of the commit followed by a : and brief description.
 
-#### Types of commits include:
+#### Types of commits include
 
 `fix` - use if committed code is fixing a bug(broken code).
 
@@ -161,68 +159,65 @@ git commit -m "Feat: Add shuffle to deck"
 git commit -m "Test: Add test for shuffle"
 ```
 
-Spec Harness: https://github.com/turingschool-examples/futbol_spec_harness
-
-
-### Branch naming conventions:
+### Branch naming conventions
 
 Conventionally starts with prefix of feature/ or refactor/ or fix/
 Do not use the word ‘iteration’ - instead describe what work is being tackled in that iteration
 Should be able to see a high level view of your approach to the project
 
-## Thursday 4/20 & ONGOING DURING PROJECT
+## Thursday 4/20 & ONGOING DURING PROJECT **DTR: Check In**
 
-**DTR: Check In**
-Essential Questions:
-Individual Reflection
-Have I been able to uphold the DTR norms we set?
+- Have I been able to uphold the DTR norms we set?
+  - Matt:  Yes for the most part I think we have. Although since we have limited time we could be more focused so we can achieve more
+  - Javen: Yes
+  - Garrett: I would like to see us adhering to time blocks a little closer to what we set for ourselves. I know that I have had a few hangups with jumping on right at the times we have set for ourselves, but for our group check ins I think that it’s important we adhere to the time constraints we set
+  - Myles: I think so. We went a little over last night for Javen’s time (sorry)
 
-- Matt:
-- Javen:
-- Garrett:
-- Myles:
+- Are there any new norms or expectations I would like to add?
+  - Matt: I would like to focus on working together on challenges more
+  - Javen: None I can think of
+  - Garrett: I’d like to add time blocking for meetings so that we can clearly define what we are trying to accomplish and when; productive struggle and sharing of responsibilities/commits
+  - Myles: I really hope to knock out most of this stuff over the next couple days so I can keep my weekend as free as possible.
 
-Are there any new norms or expectations I would like to add?
+- Do I need to give any feedback or clarify my working relationship with anyone?
+  - Matt: So far i think we have been very open an honest with each other in terms of feedback and our working relationships are going well because of that
+  - Javen: Communication has been great, especially making sure we all agree on things that are moving forward
+  - Garrett: I’d like to address time blocking and productive struggle with the group
+  - Myles: I think/hope we’re good
 
-- Matt:
-- Javen:
-- Garrett:
-- Myles:
 
-Do I need to give any feedback or clarify my working relationship with anyone?
+### Team Discussion
 
-- Matt:
-- Javen:
-- Garrett:
-- Myles:
-
-### Team Discussion:
-
-Have we been able to meet the DTR norms we set?
-
-In what ways are we working well together?
-
-Are there ways we should operate differently in order to be at our best as a team?
-
-What do we commit to changing?
-
-When will we check in again?
+- Have we been able to meet the DTR norms we set?
+  - Yes and no
+    - Time blocking at the beginning of meetings 10m for chit chat and then identify what we want to accomplish
+- In what ways are we working well together?
+  - At a good spot for the work we've accomplished thus far
+  - Lots of planning at the beginning leading to a good strategy for how to proceed
+  - Lots of communication and conneciton with one another
+- Are there ways we should operate differently in order to be at our best as a team?
+  - Jump in to huddles if neccessary, pop questions into the thread
+  - CMD + Shift + 5: save screenshots or record quick videos for questions
+- What do we commit to changing?
+  - Async work
+  - Time blocking during syncd meetings and carving out space for work and for catching up personally
+  - Working together on problems and chewing on things as a group
+  - Spreading out commits, should happen naturally as we move through the project
+  - Being aware of time zones for when we work during a synced meeting
+- When will we check in again?
+  - Retro Schedule: Fri, Apr 21 730p MT
 
 ## IF YOU HAVE A CONFLICT
 
-**DTR: Problem Solving**
-
-### Essential Questions:
-
-- Individual Reflection
-  - What behaviors/actions are occurring that are causing a challenge?
-  - Why are those behaviors challenging?
-  - Did we discuss those behaviors in our DTR?
-  - What language should I use to communicate this challenge?
-
-### Team Discussion:
-
-- Identify the problem/challenge that needs to be solved
-- What are the behaviors happening?
-- How could we update our DTR to address this?
-- What actions can we all take to move forward?
+- **DTR: Problem Solving**
+  - Essential Questions:
+    - Individual Reflection
+      - What behaviors/actions are occurring that are causing a challenge?
+      - Why are those behaviors challenging?
+      - Did we discuss those behaviors in our DTR?
+      - What language should I use to communicate this challenge?
+    - Team Discussion:
+      - Identify the problem/challenge that needs to be solved
+      - What are the behaviors happening?
+      - How could we update our DTR to address this?
+      - What actions can we all take to move forward?
