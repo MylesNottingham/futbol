@@ -60,44 +60,49 @@ class StatTracker
   end
 
   def best_offense
-    team_games = Hash.new(0)
-    team_goals = Hash.new(0)
-
-    @games.each do |game|
-      team_games[game.home_team_id] += 1
-      team_games[game.away_team_id] += 1
-      team_goals[game.home_team_id] += game.home_goals
-      team_goals[game.away_team_id] += game.away_goals
-    end
-
-    best_offense_id = team_games.max_by do |team_id, games|
-      team_goals[team_id] / games.to_f
+    best_offense_id = total_games_played_by_team.max_by do |team_id, games|
+      total_goals_by_team[team_id] / games.to_f
     end[0]
 
-    @teams.find do |team|
-      team.id == best_offense_id
-    end.name
+    get_team_name(best_offense_id)
   end
 
   def worst_offense
-    team_games = Hash.new(0)
-    team_goals = Hash.new(0)
-
-    @games.each do |game|
-      team_games[game.home_team_id] += 1
-      team_games[game.away_team_id] += 1
-      team_goals[game.home_team_id] += game.home_goals
-      team_goals[game.away_team_id] += game.away_goals
-    end
-
-    worst_offense_id = team_games.min_by do |team_id, games|
-      team_goals[team_id] / games.to_f
+    worst_offense_id = total_games_played_by_team.min_by do |team_id, games|
+      total_goals_by_team[team_id] / games.to_f
     end[0]
 
-    @teams.find do |team|
-      team.id == worst_offense_id
-    end.name
+    get_team_name(worst_offense_id)
   end
 
   ### TEAM STATS ###
+
+  ### HELPER METHODS ###
+  def total_games_played_by_team
+    total_games_played_by_team = Hash.new(0)
+
+    @games.each do |game|
+      total_games_played_by_team[game.home_team_id] += 1
+      total_games_played_by_team[game.away_team_id] += 1
+    end
+
+    total_games_played_by_team
+  end
+
+  def total_goals_by_team
+    total_goals_by_team = Hash.new(0)
+
+    @games.each do |game|
+      total_goals_by_team[game.home_team_id] += game.home_goals
+      total_goals_by_team[game.away_team_id] += game.away_goals
+    end
+
+    total_goals_by_team
+  end
+
+  def get_team_name(id)
+    @teams.find do |team|
+      team.id == id
+    end.name
+  end
 end
