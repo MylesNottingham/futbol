@@ -57,6 +57,23 @@ class StatTracker
     (tie_games.count / number_of_games).round(2)
   end
 
+  def highest_scoring_visitor
+    away_goals = Hash.new(0)
+    @game_teams.each do |game|
+      if game.home_or_away == "away"
+        away_goals[game.team_id] += game.goals
+      end
+      # away_goals[game.away_team_id] += game.away_goals
+    end
+    top_away = away_goals.max_by do |team, goals|
+      goals
+
+    end
+    require 'pry'; binding.pry
+    # games_played
+    # require 'pry'; binding.pry
+  end
+
   ### LEAGUE STATS ###
   ### TEAM STATS ###
 end
