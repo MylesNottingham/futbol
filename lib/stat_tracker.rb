@@ -57,6 +57,14 @@ class StatTracker
     season_count.each { |season| count_of_games[season] += 1 }
     count_of_games
   end
+
+  def average_goals_per_game
+    number_of_games = @games.count.to_f
+    average_goals = @games.map do |game|
+      game.away_goals + game.home_goals
+    end
+    (average_goals.sum.to_f / number_of_games).round(2)
+  end
   ### LEAGUE STATS ###
   ### TEAM STATS ###
 end
