@@ -16,8 +16,8 @@ class GameTeam
     @result       = row[:result]
     @settled_in   = row[:settled_in]
     @head_coach   = row[:head_coach]
-    @goals        = row[:goals]
-    @shots        = row[:shots]
-    @tackles      = row[:tackles]
+    @goals        = row[:goals].to_i
+    @shots        = row[:shots].to_i
+    @tackles      = row[:tackles].to_i
   end
 end
