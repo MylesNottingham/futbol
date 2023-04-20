@@ -5,7 +5,7 @@ require "./lib/game"
 RSpec.describe Team do
   describe "#initialize" do
     it "initializes from CSV and parses data" do
-      team1 = Team.new(
+      team_1 = Team.new(
         {
           team_id: "1",
           franchiseid: "23",
@@ -15,12 +15,13 @@ RSpec.describe Team do
           link: "/api/v1/teams/1"
         }
       )
-      expect(team1).to be_a(Team)
-      expect(team1.id).to eq("1")
-      expect(team1.franchise).to eq("23")
-      expect(team1.name).to eq("Atlanta United")
-      expect(team1.abbreviation).to eq("ATL")
-      expect(team1.stadium).to eq("Mercedes-Benz Stadium")
+
+      expect(team_1).to be_a(Team)
+      expect(team_1.id).to eq("1")
+      expect(team_1.franchise).to eq("23")
+      expect(team_1.name).to eq("Atlanta United")
+      expect(team_1.abbreviation).to eq("ATL")
+      expect(team_1.stadium).to eq("Mercedes-Benz Stadium")
     end
   end
 end
