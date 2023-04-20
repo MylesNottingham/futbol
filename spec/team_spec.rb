@@ -1,6 +1,4 @@
 require "spec_helper"
-require "./lib/team"
-require "./lib/game"
 
 RSpec.describe Team do
   describe "#initialize" do
