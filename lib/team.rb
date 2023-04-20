@@ -4,6 +4,7 @@ class Team
               :name,
               :abbreviation,
               :stadium
+
   def initialize(row)
     @id           = row[:team_id]
     @franchise    = row[:franchiseid]
