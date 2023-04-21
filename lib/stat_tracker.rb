@@ -89,7 +89,7 @@ class StatTracker
     total_goals_by_away_team.each do |team_id, goals|
       away_pts_per_game[team_id] = (goals / total_games_played_by_team_in_games[team_id])
     end
-    most_away_pts_per_game = away_pts_per_game.max_by do |team_id, pts_per_game|
+    most_away_pts_per_game = away_pts_per_game.max_by do |_, pts_per_game|
       pts_per_game
     end
     get_team_name(most_away_pts_per_game[0])
@@ -100,7 +100,7 @@ class StatTracker
     total_goals_by_home_team.each do |team_id, goals|
       home_pts_per_game[team_id] = (goals / total_games_played_by_team_in_games[team_id])
     end
-    most_home_pts_per_game = home_pts_per_game.max_by do |team_id, pts_per_game|
+    most_home_pts_per_game = home_pts_per_game.max_by do |_, pts_per_game|
       pts_per_game
     end
     get_team_name(most_home_pts_per_game[0])
@@ -111,7 +111,7 @@ class StatTracker
     total_goals_by_away_team.each do |team_id, goals|
       away_pts_per_game[team_id] = (goals / total_games_played_by_team_in_games[team_id])
     end
-    lowest_away_pts_per_game = away_pts_per_game.min_by do |team_id, pts_per_game|
+    lowest_away_pts_per_game = away_pts_per_game.min_by do |_, pts_per_game|
       pts_per_game
     end
     get_team_name(lowest_away_pts_per_game[0])
@@ -122,7 +122,7 @@ class StatTracker
     total_goals_by_home_team.each do |team_id, goals|
       home_pts_per_game[team_id] = (goals / total_games_played_by_team_in_games[team_id])
     end
-    lowest_home_pts_per_game = home_pts_per_game.min_by do |team_id, pts_per_game|
+    lowest_home_pts_per_game = home_pts_per_game.min_by do |_, pts_per_game|
       pts_per_game
     end
     get_team_name(lowest_home_pts_per_game[0])
