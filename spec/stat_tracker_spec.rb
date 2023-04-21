@@ -11,7 +11,7 @@ RSpec.describe StatTracker do
     )
   end
 
-  describe "#initialize" do
+  describe "#initialize(files)" do
     it "can initialize with games" do
       expect(@stat_tracker).to be_a(StatTracker)
       expect(@stat_tracker.games).to be_an(Array)
@@ -106,15 +106,27 @@ RSpec.describe StatTracker do
   end
 
   ### SEASON STATS ###
-  describe "#most_accurate_team" do
-    it "can find the team with the best shooting percentage" do
+  describe "#most_accurate_team(season)" do
+    it "can find the team with the best shooting percentage in season" do
       expect(@stat_tracker.most_accurate_team("20122013")).to eq("DC United")
     end
   end
 
-  describe "#least_accurate_team" do
-    it "can find the team with the worst shooting percentage" do
+  describe "#least_accurate_team(season)" do
+    it "can find the team with the worst shooting percentage in season" do
       expect(@stat_tracker.least_accurate_team("20122013")).to eq("New York City FC")
+    end
+  end
+
+  describe "#most_tackles(season)" do
+    it "can find the team with the most tackles in season" do
+      expect(@stat_tracker.most_tackles("20122013")).to eq("FC Cincinnati")
+    end
+  end
+
+  describe "#fewest_tackles(season)" do
+    it "can find the team with the fewest tackles in season" do
+      expect(@stat_tracker.fewest_tackles("20122013")).to eq("Atlanta United")
     end
   end
 
@@ -147,13 +159,13 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe "#get_team_name" do
+  describe "#get_team_name(id)" do
     it "can find the team name from the team id" do
       expect(@stat_tracker.get_team_name("28")).to eq("Los Angeles FC")
     end
   end
 
-  describe "games_by_season" do
+  describe "games_by_season(season)" do
     it "can find all games by given season" do
       expect(@stat_tracker.games_by_season("20122013")).to be_an(Array)
       expect(@stat_tracker.games_by_season("20122013").count).to eq(806)
@@ -164,7 +176,18 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe "filter_game_teams" do
+  describe "generate_game_ids(games)" do
+    it "can generate an array of game ids from an array of games" do
+      expect(@stat_tracker.generate_game_ids(@stat_tracker.games)).to be_an(Array)
+      expect(@stat_tracker.generate_game_ids(@stat_tracker.games).count).to eq(7441)
+      expect(@stat_tracker.generate_game_ids(@stat_tracker.games).first).to eq("2012030221")
+      @stat_tracker.generate_game_ids(@stat_tracker.games).each do |game_id|
+        expect(game_id).to be_a(String)
+      end
+    end
+  end
+
+  describe "filter_game_teams(game_ids)" do
     it "can filter game teams by given game_ids" do
       expect(@stat_tracker.filter_game_teams(["2012030221"])).to be_an(Array)
       expect(@stat_tracker.filter_game_teams(["2012030221"]).count).to eq(2)
@@ -175,7 +198,7 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe "find_total_shots_by_team" do
+  describe "find_total_shots_by_team(game_teams)" do
     it "can find the total number of shots taken by each team" do
       expect(@stat_tracker.find_total_shots_by_team(@stat_tracker.game_teams)).to be_a(Hash)
       expect(@stat_tracker.find_total_shots_by_team(@stat_tracker.game_teams).count).to eq(32)
@@ -183,11 +206,19 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe "find_total_goals_by_team" do
+  describe "find_total_goals_by_team(game_teams)" do
     it "can find the total number of goals made by each team" do
       expect(@stat_tracker.find_total_goals_by_team(@stat_tracker.game_teams)).to be_a(Hash)
       expect(@stat_tracker.find_total_goals_by_team(@stat_tracker.game_teams).count).to eq(32)
       expect(@stat_tracker.find_total_goals_by_team(@stat_tracker.game_teams)["28"]).to eq(1128)
+    end
+  end
+
+  describe "find_total_tackles_by_team(game_teams)" do
+    it "can find the total number of tackles made by each team" do
+      expect(@stat_tracker.find_total_tackles_by_team(@stat_tracker.game_teams)).to be_a(Hash)
+      expect(@stat_tracker.find_total_tackles_by_team(@stat_tracker.game_teams).count).to eq(32)
+      expect(@stat_tracker.find_total_tackles_by_team(@stat_tracker.game_teams)["28"]).to eq(11_149)
     end
   end
 end
