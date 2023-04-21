@@ -13,9 +13,15 @@ class StatTracker
   end
 
   def initialize(files)
-    @games = (CSV.open files[:games], headers: true, header_converters: :symbol).map { |row| Game.new(row) }
-    @teams = (CSV.open files[:teams], headers: true, header_converters: :symbol).map { |row| Team.new(row) }
-    @game_teams = (CSV.open files[:game_teams], headers: true, header_converters: :symbol).map { |row| GameTeam.new(row) }
+    @games = (CSV.open files[:games], headers: true, header_converters: :symbol).map do |row|
+      Game.new(row)
+    end
+    @teams = (CSV.open files[:teams], headers: true, header_converters: :symbol).map do |row|
+      Team.new(row)
+    end
+    @game_teams = (CSV.open files[:game_teams], headers: true, header_converters: :symbol).map do |row|
+      GameTeam.new(row)
+    end
   end
 
   ### GAME STATS ###
@@ -63,19 +69,42 @@ class StatTracker
   end
 
   def best_offense
-    best_offense_id = total_games_played_by_team.max_by do |team_id, games|
-      total_goals_by_team[team_id] / games.to_f
+    best_offense_id = total_games_played_by_team_in_games.max_by do |team_id, games|
+      total_goals_by_team_in_games[team_id] / games.to_f
     end[0]
 
     get_team_name(best_offense_id)
   end
 
   def worst_offense
-    worst_offense_id = total_games_played_by_team.min_by do |team_id, games|
-      total_goals_by_team[team_id] / games.to_f
+    worst_offense_id = total_games_played_by_team_in_games.min_by do |team_id, games|
+      total_goals_by_team_in_games[team_id] / games.to_f
     end[0]
 
     get_team_name(worst_offense_id)
+  end
+
+  ### SEASON STATS ###
+  def most_accurate_team(season)
+    game_ids = games_by_season(season).map(&:game_id)
+    filtered_game_teams = filter_game_teams(game_ids)
+
+    most_accurate_team_id = find_total_shots_by_team(filtered_game_teams).max_by do |team_id, shots|
+      find_total_goals_by_team(filtered_game_teams)[team_id] / shots.to_f
+    end[0]
+
+    get_team_name(most_accurate_team_id)
+  end
+
+  def least_accurate_team(season)
+    game_ids = games_by_season(season).map(&:game_id)
+    filtered_game_teams = filter_game_teams(game_ids)
+
+    least_accurate_team_id = find_total_shots_by_team(filtered_game_teams).min_by do |team_id, shots|
+      find_total_goals_by_team(filtered_game_teams)[team_id] / shots.to_f
+    end[0]
+
+    get_team_name(least_accurate_team_id)
   end
 
   def highest_scoring_visitor
@@ -122,10 +151,8 @@ class StatTracker
     get_team_name(lowest_home_pts_per_game[0])
   end
 
-  ### TEAM STATS ###
-
   ### HELPER METHODS ###
-  def total_games_played_by_team
+  def total_games_played_by_team_in_games
     total_games_played_by_team = Hash.new(0)
 
     @games.each do |game|
@@ -136,7 +163,7 @@ class StatTracker
     total_games_played_by_team
   end
 
-  def total_goals_by_team
+  def total_goals_by_team_in_games
     total_goals_by_team = Hash.new(0)
 
     @games.each do |game|
@@ -150,7 +177,7 @@ class StatTracker
   def total_goals_by_home_team
     home_goals = Hash.new(0)
     @game_teams.each do |game|
-      if game.home_or_away == "home"
+      if game.home?
         home_goals[game.team_id] += game.goals.to_f
       end
     end
@@ -160,7 +187,7 @@ class StatTracker
   def total_goals_by_away_team
     away_goals = Hash.new(0)
     @game_teams.each do |game|
-      if game.home_or_away == "away"
+      if !game.home?
         away_goals[game.team_id] += game.goals.to_f
       end
     end
@@ -171,5 +198,37 @@ class StatTracker
     @teams.find do |team|
       team.id == id
     end.name
+  end
+
+  def games_by_season(season)
+    @games.find_all do |game|
+      game.season == season
+    end
+  end
+
+  def filter_game_teams(game_ids)
+    @game_teams.find_all do |game_team|
+      game_ids.include?(game_team.game_id)
+    end
+  end
+
+  def find_total_shots_by_team(game_teams)
+    total_shots_by_team = Hash.new(0)
+
+    game_teams.each do |game_team|
+      total_shots_by_team[game_team.team_id] += game_team.shots
+    end
+
+    total_shots_by_team
+  end
+
+  def find_total_goals_by_team(game_teams)
+    total_goals_by_team = Hash.new(0)
+
+    game_teams.each do |game_team|
+      total_goals_by_team[game_team.team_id] += game_team.goals
+    end
+
+    total_goals_by_team
   end
 end
