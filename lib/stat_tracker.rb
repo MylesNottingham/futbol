@@ -78,6 +78,23 @@ class StatTracker
     get_team_name(worst_offense_id)
   end
 
+  def highest_scoring_visitor
+    away_goals = Hash.new(0)
+    @game_teams.each do |game|
+      if game.home_or_away == "away"
+        away_goals[game.team_id] += game.goals.to_f
+      end
+    end
+    away_pts_per_game = Hash.new(0)
+    away_goals.each do |team_id, goals|
+      away_pts_per_game[team_id] = (goals / total_games_played_by_team[team_id])
+    end
+    highest_scoring_visitor = away_pts_per_game.max_by do |team_id, pts_per_game|
+      pts_per_game
+    end
+    get_team_name(highest_scoring_visitor[0])
+  end
+
   ### TEAM STATS ###
 
   ### HELPER METHODS ###
