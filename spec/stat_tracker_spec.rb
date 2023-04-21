@@ -81,19 +81,6 @@ RSpec.describe StatTracker do
     end
   end
 
-  ### SEASON STATS ###
-  describe "#most_accurate_team" do
-    it "can find the team with the best shooting percentage" do
-      expect(@stat_tracker.most_accurate_team("20122013")).to eq("DC United")
-    end
-  end
-
-  describe "#least_accurate_team" do
-    it "can find the team with the worst shooting percentage" do
-      expect(@stat_tracker.least_accurate_team("20122013")).to eq("New York City FC")
-    end
-  end
-
   describe "#highest_scoring_visitor" do
     it "finds the name of the team with the highest average score per game across all seasons when they are away." do
       expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
@@ -107,14 +94,27 @@ RSpec.describe StatTracker do
   end
 
   describe "#lowest_scoring_visitor" do
-    it "returns the name of the team with the lowest average score per game across all seasons when they are a visitor." do
+    it "returns team name with the lowest average score per game across all seasons when they are a visitor." do
       expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
     end
   end
 
   describe "#lowest_scoring_home_team" do
-    it "returns the name of the team with the lowest average score per game across all seasons when they are at home." do
+    it "returns team name with the lowest average score per game across all seasons when they are at home." do
       expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
+    end
+  end
+
+  ### SEASON STATS ###
+  describe "#most_accurate_team" do
+    it "can find the team with the best shooting percentage" do
+      expect(@stat_tracker.most_accurate_team("20122013")).to eq("DC United")
+    end
+  end
+
+  describe "#least_accurate_team" do
+    it "can find the team with the worst shooting percentage" do
+      expect(@stat_tracker.least_accurate_team("20122013")).to eq("New York City FC")
     end
   end
 
@@ -132,6 +132,18 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.total_goals_by_team_in_games).to be_a(Hash)
       expect(@stat_tracker.total_goals_by_team_in_games.count).to eq(32)
       expect(@stat_tracker.total_goals_by_team_in_games["28"]).to eq(1128)
+    end
+  end
+
+  describe "#total_goals_by_home_team" do
+    it "gets the total goals scored for each team as home teams as floats" do
+      expect(@stat_tracker.total_goals_by_home_team["3"]).to eq(557.0)
+    end
+  end
+
+  describe "#total_goals_by_away_team" do
+    it "gets the total goals scored for each team as away teams as floats" do
+      expect(@stat_tracker.total_goals_by_away_team["3"]).to eq(572.0)
     end
   end
 
@@ -176,16 +188,6 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.find_total_goals_by_team(@stat_tracker.game_teams)).to be_a(Hash)
       expect(@stat_tracker.find_total_goals_by_team(@stat_tracker.game_teams).count).to eq(32)
       expect(@stat_tracker.find_total_goals_by_team(@stat_tracker.game_teams)["28"]).to eq(1128)
-
-  describe "#total_goals_by_home_team" do
-    it "gets the total goals scored for each team as home teams as floats" do
-      expect(@stat_tracker.total_goals_by_home_team["3"]).to eq(557.0)
-    end
-  end
-
-  describe "#total_goals_by_away_team" do
-    it "gets the total goals scored for each team as away teams as floats" do
-      expect(@stat_tracker.total_goals_by_away_team["3"]).to eq(572.0)
     end
   end
 end
