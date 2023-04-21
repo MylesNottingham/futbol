@@ -129,4 +129,16 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.get_team_name("28")).to eq("Los Angeles FC")
     end
   end
+
+  describe "#total_goals_by_home_team" do
+    it "gets the total goals scored for each team as home teams as floats" do
+      expect(@stat_tracker.total_goals_by_home_team["3"]).to eq(557.0)
+    end
+  end
+
+  describe "#total_goals_by_away_team" do
+    it "gets the total goals scored for each team as away teams as floats" do
+      expect(@stat_tracker.total_goals_by_away_team["3"]).to eq(572.0)
+    end
+  end
 end
