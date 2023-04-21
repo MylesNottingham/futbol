@@ -94,6 +94,30 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe "#highest_scoring_visitor" do
+    it "finds the name of the team with the highest average score per game across all seasons when they are away." do
+      expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+    end
+  end
+
+  describe "#highest_scoring_home_team" do
+    it "finds the name of the team with the highest average score per game across all seasons when they are home" do
+      expect(@stat_tracker.highest_scoring_home_team).to eq("Reign FC")
+    end
+  end
+
+  describe "#lowest_scoring_visitor" do
+    it "returns the name of the team with the lowest average score per game across all seasons when they are a visitor." do
+      expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
+    end
+  end
+
+  describe "#lowest_scoring_home_team" do
+    it "returns the name of the team with the lowest average score per game across all seasons when they are at home." do
+      expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
+    end
+  end
+
   ### HELPER METHODS ###
   describe "#total_games_played_by_team_in_games" do
     it "can find the total number of games played by each team" do
@@ -152,6 +176,16 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.find_total_goals_by_team(@stat_tracker.game_teams)).to be_a(Hash)
       expect(@stat_tracker.find_total_goals_by_team(@stat_tracker.game_teams).count).to eq(32)
       expect(@stat_tracker.find_total_goals_by_team(@stat_tracker.game_teams)["28"]).to eq(1128)
+
+  describe "#total_goals_by_home_team" do
+    it "gets the total goals scored for each team as home teams as floats" do
+      expect(@stat_tracker.total_goals_by_home_team["3"]).to eq(557.0)
+    end
+  end
+
+  describe "#total_goals_by_away_team" do
+    it "gets the total goals scored for each team as away teams as floats" do
+      expect(@stat_tracker.total_goals_by_away_team["3"]).to eq(572.0)
     end
   end
 end
