@@ -5264,7 +5264,7 @@ Style/SymbolLiteral:
 
 Style/SymbolProc:
   Description: 'Use symbols as procs instead of blocks when possible.'
-  Enabled: false
+  Enabled: true
   Safe: false
   VersionAdded: '0.26'
   VersionChanged: '1.40'
