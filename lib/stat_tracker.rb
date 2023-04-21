@@ -63,6 +63,33 @@ class StatTracker
     (tie_games.count / number_of_games).round(2)
   end
 
+  def count_of_games_by_season
+    count_of_games = Hash.new(0)
+    season_count = @games.map { |game| game.season }
+    season_count.each { |season| count_of_games[season] += 1 }
+    count_of_games
+  end
+
+  def average_goals_per_game
+    number_of_games = @games.count.to_f
+    average_goals = @games.map do |game|
+      game.away_goals + game.home_goals
+    end
+    (average_goals.sum.to_f / number_of_games).round(2)
+  end
+
+  def average_goals_by_season
+    season_total_goals = Hash.new(0)
+    @games.each do |game|
+      season_total_goals[game.season] += game.away_goals + game.home_goals
+    end
+    season_average_goals = Hash.new(0)
+    season_total_goals.each do |season, _|
+      season_average_goals[season] = (season_total_goals[season].to_f / count_of_games_by_season[season]).round(2)
+    end
+    season_average_goals
+  end
+
   ### LEAGUE STATS ###
   def count_of_teams
     @teams.count
