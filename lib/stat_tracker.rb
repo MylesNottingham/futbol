@@ -130,8 +130,7 @@ class StatTracker
 
   ### SEASON STATS ###
   def most_accurate_team(season)
-    game_ids = games_by_season(season).map(&:game_id)
-    filtered_game_teams = filter_game_teams(game_ids)
+    filtered_game_teams = filter_game_teams(generate_game_ids(games_by_season(season)))
 
     most_accurate_team_id = find_total_shots_by_team(filtered_game_teams).max_by do |team_id, shots|
       find_total_goals_by_team(filtered_game_teams)[team_id] / shots.to_f
@@ -141,14 +140,33 @@ class StatTracker
   end
 
   def least_accurate_team(season)
-    game_ids = games_by_season(season).map(&:game_id)
-    filtered_game_teams = filter_game_teams(game_ids)
+    filtered_game_teams = filter_game_teams(generate_game_ids(games_by_season(season)))
 
     least_accurate_team_id = find_total_shots_by_team(filtered_game_teams).min_by do |team_id, shots|
       find_total_goals_by_team(filtered_game_teams)[team_id] / shots.to_f
     end[0]
 
     get_team_name(least_accurate_team_id)
+  end
+
+  def most_tackles(season)
+    filtered_game_teams = filter_game_teams(generate_game_ids(games_by_season(season)))
+
+    most_tackles_team_id = find_total_tackles_by_team(filtered_game_teams).max_by do |_, tackles|
+      tackles
+    end[0]
+
+    get_team_name(most_tackles_team_id)
+  end
+
+  def fewest_tackles(season)
+    filtered_game_teams = filter_game_teams(generate_game_ids(games_by_season(season)))
+
+    fewest_tackles_team_id = find_total_tackles_by_team(filtered_game_teams).min_by do |_, tackles|
+      tackles
+    end[0]
+
+    get_team_name(fewest_tackles_team_id)
   end
 
   ### HELPER METHODS ###
@@ -202,6 +220,10 @@ class StatTracker
     end
   end
 
+  def generate_game_ids(games)
+    games.map(&:game_id)
+  end
+
   def filter_game_teams(game_ids)
     @game_teams.find_all do |game_team|
       game_ids.include?(game_team.game_id)
@@ -226,5 +248,15 @@ class StatTracker
     end
 
     total_goals_by_team
+  end
+
+  def find_total_tackles_by_team(game_teams)
+    total_tackles_by_team = Hash.new(0)
+
+    game_teams.each do |game_team|
+      total_tackles_by_team[game_team.team_id] += game_team.tackles
+    end
+
+    total_tackles_by_team
   end
 end
