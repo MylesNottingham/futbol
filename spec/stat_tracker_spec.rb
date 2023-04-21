@@ -93,6 +93,18 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe "#lowest_scoring_visitor" do
+    it "returns the name of the team with the lowest average score per game across all seasons when they are a visitor." do
+      expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
+    end
+  end
+
+  describe "#lowest_scoring_home_team" do
+    it "returns the name of the team with the lowest average score per game across all seasons when they are at home." do
+      expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
+    end
+  end
+
   ### TEAM STATS ###
 
   ### HELPER METHODS ###

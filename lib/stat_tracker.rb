@@ -112,6 +112,40 @@ class StatTracker
     get_team_name(highest_scoring_home[0])
   end
 
+  def lowest_scoring_visitor
+    away_goals = Hash.new(0)
+    @game_teams.each do |game|
+      if game.home_or_away == "away"
+        away_goals[game.team_id] += game.goals.to_f
+      end
+    end
+    away_pts_per_game = Hash.new(0)
+    away_goals.each do |team_id, goals|
+      away_pts_per_game[team_id] = (goals / total_games_played_by_team[team_id])
+    end
+    lowest_scoring_visitor = away_pts_per_game.min_by do |team_id, pts_per_game|
+      pts_per_game
+    end
+    get_team_name(lowest_scoring_visitor[0])
+  end
+
+  def lowest_scoring_home_team
+    home_goals = Hash.new(0)
+    @game_teams.each do |game|
+      if game.home_or_away == "home"
+        home_goals[game.team_id] += game.goals.to_f
+      end
+    end
+    home_pts_per_game = Hash.new(0)
+    home_goals.each do |team_id, goals|
+      home_pts_per_game[team_id] = (goals / total_games_played_by_team[team_id])
+    end
+    highest_scoring_home = home_pts_per_game.min_by do |team_id, pts_per_game|
+      pts_per_game
+    end
+    get_team_name(highest_scoring_home[0])
+  end
+
   ### TEAM STATS ###
 
   ### HELPER METHODS ###
