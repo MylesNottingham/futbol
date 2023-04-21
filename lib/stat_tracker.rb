@@ -177,7 +177,7 @@ class StatTracker
   def total_goals_by_home_team
     home_goals = Hash.new(0)
     @game_teams.each do |game|
-      if game.home_or_away == "home"
+      if game.home?
         home_goals[game.team_id] += game.goals.to_f
       end
     end
@@ -187,7 +187,7 @@ class StatTracker
   def total_goals_by_away_team
     away_goals = Hash.new(0)
     @game_teams.each do |game|
-      if game.home_or_away == "away"
+      if !game.home?
         away_goals[game.team_id] += game.goals.to_f
       end
     end
