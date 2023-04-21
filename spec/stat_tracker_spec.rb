@@ -88,7 +88,7 @@ RSpec.describe StatTracker do
   end
 
   describe "#highest_scoring_home_team" do
-    it "" do
+    it "finds the name of the team with the highest average score per game across all seasons when they are home" do
       expect(@stat_tracker.highest_scoring_home_team).to eq("Reign FC")
     end
   end
