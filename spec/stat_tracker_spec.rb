@@ -267,6 +267,24 @@ RSpec.describe StatTracker do
         expect(game_team.game_id).to eq("2012030221")
       end
     end
+
+    it "can filter game teams by given game_ids" do
+      expect(@stat_tracker.filter_game_teams(["2013021119"])).to be_an(Array)
+      expect(@stat_tracker.filter_game_teams(["2013021119"]).count).to eq(2)
+      expect(@stat_tracker.filter_game_teams(["2013021119"]).first).to be_a(GameTeam)
+      @stat_tracker.filter_game_teams(["2013021119"]).each do |game_team|
+        expect(game_team.game_id).to eq("2013021119")
+      end
+    end
+
+    it "can filter game teams by given game_ids" do
+      expect(@stat_tracker.filter_game_teams(["2013020251"])).to be_an(Array)
+      expect(@stat_tracker.filter_game_teams(["2013020251"]).count).to eq(2)
+      expect(@stat_tracker.filter_game_teams(["2013020251"]).first).to be_a(GameTeam)
+      @stat_tracker.filter_game_teams(["2013020251"]).each do |game_team|
+        expect(game_team.game_id).to eq("2013020251")
+      end
+    end
   end
 
   describe "find_total_shots_by_team(game_teams)" do
