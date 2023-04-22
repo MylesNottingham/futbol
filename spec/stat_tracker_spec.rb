@@ -205,6 +205,8 @@ RSpec.describe StatTracker do
   describe "#total_goals_by_away_team" do
     it "gets the total goals scored for each team as away teams as floats" do
       expect(@stat_tracker.total_goals_by_away_team["3"]).to eq(572.0)
+      expect(@stat_tracker.total_goals_by_away_team["6"]).to eq(568.0)
+      expect(@stat_tracker.total_goals_by_away_team["24"]).to eq(553.0)
     end
   end
 
