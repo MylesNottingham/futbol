@@ -181,10 +181,16 @@ RSpec.describe StatTracker do
   end
 
   describe "#total_goals_by_team_in_games" do
-    it "can find the total number of goals scored by each team" do
+    it "can find the total number of goals scored by a team" do
       expect(@stat_tracker.total_goals_by_team_in_games).to be_a(Hash)
       expect(@stat_tracker.total_goals_by_team_in_games.count).to eq(32)
       expect(@stat_tracker.total_goals_by_team_in_games["28"]).to eq(1128)
+    end
+
+    it "can find the total number of goals scored by other teams" do
+      expect(@stat_tracker.total_goals_by_team_in_games["15"]).to eq(1168)
+      expect(@stat_tracker.total_goals_by_team_in_games["24"]).to eq(1146)
+      expect(@stat_tracker.total_goals_by_team_in_games["4"]).to eq(972)
     end
   end
 
