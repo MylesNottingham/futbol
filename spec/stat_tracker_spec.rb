@@ -321,5 +321,11 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.find_total_tackles_by_team(@stat_tracker.game_teams).count).to eq(32)
       expect(@stat_tracker.find_total_tackles_by_team(@stat_tracker.game_teams)["28"]).to eq(11_149)
     end
+
+    it "can find the total number of tackles made by a team" do
+      expect(@stat_tracker.find_total_tackles_by_team(@stat_tracker.game_teams)["14"]).to eq(11_769)
+      expect(@stat_tracker.find_total_tackles_by_team(@stat_tracker.game_teams)["19"]).to eq(11_921)
+      expect(@stat_tracker.find_total_tackles_by_team(@stat_tracker.game_teams)["27"]).to eq(3_433)
+    end
   end
 end
