@@ -293,6 +293,12 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.find_total_shots_by_team(@stat_tracker.game_teams).count).to eq(32)
       expect(@stat_tracker.find_total_shots_by_team(@stat_tracker.game_teams)["28"]).to eq(3901)
     end
+
+    it "can find the total number of shots take by another team" do
+      expect(@stat_tracker.find_total_shots_by_team(@stat_tracker.game_teams)["18"]).to eq(3739)
+      expect(@stat_tracker.find_total_shots_by_team(@stat_tracker.game_teams)["23"]).to eq(3254)
+      expect(@stat_tracker.find_total_shots_by_team(@stat_tracker.game_teams)["15"]).to eq(3761)
+    end
   end
 
   describe "find_total_goals_by_team(game_teams)" do
