@@ -213,6 +213,8 @@ RSpec.describe StatTracker do
   describe "#get_team_name(id)" do
     it "can find the team name from the team id" do
       expect(@stat_tracker.get_team_name("28")).to eq("Los Angeles FC")
+      expect(@stat_tracker.get_team_name("1")).to eq("Atlanta United")
+      expect(@stat_tracker.get_team_name("25")).to eq("Chicago Red Stars")
     end
   end
 
