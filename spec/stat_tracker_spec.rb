@@ -166,6 +166,11 @@ RSpec.describe StatTracker do
   end
 
   ### HELPER METHODS ###
+  describe "#number_of_games" do
+    it "can get the total number of games as a float" do
+      expect(@stat_tracker.number_of_games).to eq(7441.0)
+    end
+  end
   describe "#total_games_played_by_team_in_games" do
     it "can find the total number of games played by a team" do
       expect(@stat_tracker.total_games_played_by_team_in_games).to be_a(Hash)
