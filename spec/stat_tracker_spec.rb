@@ -167,10 +167,16 @@ RSpec.describe StatTracker do
 
   ### HELPER METHODS ###
   describe "#total_games_played_by_team_in_games" do
-    it "can find the total number of games played by each team" do
+    it "can find the total number of games played by a team" do
       expect(@stat_tracker.total_games_played_by_team_in_games).to be_a(Hash)
       expect(@stat_tracker.total_games_played_by_team_in_games.count).to eq(32)
       expect(@stat_tracker.total_games_played_by_team_in_games["28"]).to eq(516)
+    end
+
+    it "can find the total number of games played by other teams" do
+      expect(@stat_tracker.total_games_played_by_team_in_games["6"]).to eq(510)
+      expect(@stat_tracker.total_games_played_by_team_in_games["17"]).to eq(489)
+      expect(@stat_tracker.total_games_played_by_team_in_games["19"]).to eq(507)
     end
   end
 
