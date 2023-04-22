@@ -197,6 +197,10 @@ class StatTracker
   end
 
   ### HELPER METHODS ###
+  def number_of_games
+    @games.count.to_f
+  end
+  
   def total_games_played_by_team_in_games
     total_games_played_by_team = Hash.new(0)
 
