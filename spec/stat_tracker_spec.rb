@@ -227,6 +227,24 @@ RSpec.describe StatTracker do
         expect(game.season).to eq("20122013")
       end
     end
+
+    it "can find all games by given season" do
+      expect(@stat_tracker.games_by_season("20162017")).to be_an(Array)
+      expect(@stat_tracker.games_by_season("20162017").count).to eq(1317)
+      expect(@stat_tracker.games_by_season("20162017").first).to be_a(Game)
+      @stat_tracker.games_by_season("20162017").each do |game|
+        expect(game.season).to eq("20162017")
+      end
+    end
+
+    it "can find all games by given season" do
+      expect(@stat_tracker.games_by_season("20132014")).to be_an(Array)
+      expect(@stat_tracker.games_by_season("20132014").count).to eq(1323)
+      expect(@stat_tracker.games_by_season("20132014").first).to be_a(Game)
+      @stat_tracker.games_by_season("20132014").each do |game|
+        expect(game.season).to eq("20132014")
+      end
+    end
   end
 
   describe "generate_game_ids(games)" do
