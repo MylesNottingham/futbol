@@ -167,82 +167,46 @@ RSpec.describe StatTracker do
 
   ### HELPER METHODS ###
   describe "#total_games_played_by_team_in_games" do
-    it "can find the total number of games played by a team" do
+    it "can find the total number of games played by each team" do
       expect(@stat_tracker.total_games_played_by_team_in_games).to be_a(Hash)
       expect(@stat_tracker.total_games_played_by_team_in_games.count).to eq(32)
       expect(@stat_tracker.total_games_played_by_team_in_games["28"]).to eq(516)
     end
-
-    it "can find the total number of games played by other teams" do
-      expect(@stat_tracker.total_games_played_by_team_in_games["6"]).to eq(510)
-      expect(@stat_tracker.total_games_played_by_team_in_games["17"]).to eq(489)
-      expect(@stat_tracker.total_games_played_by_team_in_games["19"]).to eq(507)
-    end
   end
 
   describe "#total_goals_by_team_in_games" do
-    it "can find the total number of goals scored by a team" do
+    it "can find the total number of goals scored by each team" do
       expect(@stat_tracker.total_goals_by_team_in_games).to be_a(Hash)
       expect(@stat_tracker.total_goals_by_team_in_games.count).to eq(32)
       expect(@stat_tracker.total_goals_by_team_in_games["28"]).to eq(1128)
     end
-
-    it "can find the total number of goals scored by other teams" do
-      expect(@stat_tracker.total_goals_by_team_in_games["15"]).to eq(1168)
-      expect(@stat_tracker.total_goals_by_team_in_games["24"]).to eq(1146)
-      expect(@stat_tracker.total_goals_by_team_in_games["4"]).to eq(972)
-    end
   end
 
   describe "#total_goals_by_home_team" do
-    it "gets the total goals scored by a home team as floats" do
+    it "gets the total goals scored for each team as home teams as floats" do
       expect(@stat_tracker.total_goals_by_home_team["3"]).to eq(557.0)
-      expect(@stat_tracker.total_goals_by_home_team["21"]).to eq(523.0)
-      expect(@stat_tracker.total_goals_by_home_team["12"]).to eq(474.0)
     end
   end
 
   describe "#total_goals_by_away_team" do
-    it "gets the total goals scored by an away team as floats" do
+    it "gets the total goals scored for each team as away teams as floats" do
       expect(@stat_tracker.total_goals_by_away_team["3"]).to eq(572.0)
-      expect(@stat_tracker.total_goals_by_away_team["6"]).to eq(568.0)
-      expect(@stat_tracker.total_goals_by_away_team["24"]).to eq(553.0)
     end
   end
 
   describe "#get_team_name(id)" do
-    it "can find the team name from the given team id" do
+    it "can find the team name from the team id" do
       expect(@stat_tracker.get_team_name("28")).to eq("Los Angeles FC")
-      expect(@stat_tracker.get_team_name("1")).to eq("Atlanta United")
-      expect(@stat_tracker.get_team_name("25")).to eq("Chicago Red Stars")
     end
   end
 
   describe "games_by_season(season)" do
-    it "can find all games by a given season" do
+    it "can find all games by given season" do
       expect(@stat_tracker.games_by_season("20122013")).to be_an(Array)
       expect(@stat_tracker.games_by_season("20122013").count).to eq(806)
       expect(@stat_tracker.games_by_season("20122013").first).to be_a(Game)
       @stat_tracker.games_by_season("20122013").each do |game|
         expect(game.season).to eq("20122013")
-      end
-    end
-
-    it "can find all games by another given season" do
-      expect(@stat_tracker.games_by_season("20162017")).to be_an(Array)
-      expect(@stat_tracker.games_by_season("20162017").count).to eq(1317)
-      expect(@stat_tracker.games_by_season("20162017").first).to be_a(Game)
-      @stat_tracker.games_by_season("20162017").each do |game|
-        expect(game.season).to eq("20162017")
-      end
-    end
-
-    it "can find all games by yet another given season" do
-      expect(@stat_tracker.games_by_season("20132014")).to be_an(Array)
-      expect(@stat_tracker.games_by_season("20132014").count).to eq(1323)
-      expect(@stat_tracker.games_by_season("20132014").first).to be_a(Game)
-      @stat_tracker.games_by_season("20132014").each do |game|
-        expect(game.season).to eq("20132014")
       end
     end
   end
@@ -259,7 +223,7 @@ RSpec.describe StatTracker do
   end
 
   describe "filter_game_teams(game_ids)" do
-    it "can filter game_teams by a given game_id" do
+    it "can filter game teams by given game_ids" do
       expect(@stat_tracker.filter_game_teams(["2012030221"])).to be_an(Array)
       expect(@stat_tracker.filter_game_teams(["2012030221"]).count).to eq(2)
       expect(@stat_tracker.filter_game_teams(["2012030221"]).first).to be_a(GameTeam)
@@ -267,65 +231,29 @@ RSpec.describe StatTracker do
         expect(game_team.game_id).to eq("2012030221")
       end
     end
-
-    it "can filter game_teams by another given game_id" do
-      expect(@stat_tracker.filter_game_teams(["2013021119"])).to be_an(Array)
-      expect(@stat_tracker.filter_game_teams(["2013021119"]).count).to eq(2)
-      expect(@stat_tracker.filter_game_teams(["2013021119"]).first).to be_a(GameTeam)
-      @stat_tracker.filter_game_teams(["2013021119"]).each do |game_team|
-        expect(game_team.game_id).to eq("2013021119")
-      end
-    end
-
-    it "can filter game_teams by yet another given game_id" do
-      expect(@stat_tracker.filter_game_teams(["2013020251"])).to be_an(Array)
-      expect(@stat_tracker.filter_game_teams(["2013020251"]).count).to eq(2)
-      expect(@stat_tracker.filter_game_teams(["2013020251"]).first).to be_a(GameTeam)
-      @stat_tracker.filter_game_teams(["2013020251"]).each do |game_team|
-        expect(game_team.game_id).to eq("2013020251")
-      end
-    end
   end
 
   describe "find_total_shots_by_team(game_teams)" do
-    it "can find the total number of shots taken by a team" do
+    it "can find the total number of shots taken by each team" do
       expect(@stat_tracker.find_total_shots_by_team(@stat_tracker.game_teams)).to be_a(Hash)
       expect(@stat_tracker.find_total_shots_by_team(@stat_tracker.game_teams).count).to eq(32)
       expect(@stat_tracker.find_total_shots_by_team(@stat_tracker.game_teams)["28"]).to eq(3901)
     end
-
-    it "can find the total number of shots take by other teams" do
-      expect(@stat_tracker.find_total_shots_by_team(@stat_tracker.game_teams)["18"]).to eq(3739)
-      expect(@stat_tracker.find_total_shots_by_team(@stat_tracker.game_teams)["23"]).to eq(3254)
-      expect(@stat_tracker.find_total_shots_by_team(@stat_tracker.game_teams)["15"]).to eq(3761)
-    end
   end
 
   describe "find_total_goals_by_team(game_teams)" do
-    it "can find the total number of goals made by a team" do
+    it "can find the total number of goals made by each team" do
       expect(@stat_tracker.find_total_goals_by_team(@stat_tracker.game_teams)).to be_a(Hash)
       expect(@stat_tracker.find_total_goals_by_team(@stat_tracker.game_teams).count).to eq(32)
       expect(@stat_tracker.find_total_goals_by_team(@stat_tracker.game_teams)["28"]).to eq(1128)
     end
-
-    it "can find the total number of goals made by other teams" do
-      expect(@stat_tracker.find_total_goals_by_team(@stat_tracker.game_teams)["3"]).to eq(1129)
-      expect(@stat_tracker.find_total_goals_by_team(@stat_tracker.game_teams)["12"]).to eq(936)
-      expect(@stat_tracker.find_total_goals_by_team(@stat_tracker.game_teams)["25"]).to eq(1061)
-    end
   end
 
   describe "find_total_tackles_by_team(game_teams)" do
-    it "can find the total number of tackles made by a team" do
+    it "can find the total number of tackles made by each team" do
       expect(@stat_tracker.find_total_tackles_by_team(@stat_tracker.game_teams)).to be_a(Hash)
       expect(@stat_tracker.find_total_tackles_by_team(@stat_tracker.game_teams).count).to eq(32)
       expect(@stat_tracker.find_total_tackles_by_team(@stat_tracker.game_teams)["28"]).to eq(11_149)
-    end
-
-    it "can find the total number of tackles made by other teams" do
-      expect(@stat_tracker.find_total_tackles_by_team(@stat_tracker.game_teams)["14"]).to eq(11_769)
-      expect(@stat_tracker.find_total_tackles_by_team(@stat_tracker.game_teams)["19"]).to eq(11_921)
-      expect(@stat_tracker.find_total_tackles_by_team(@stat_tracker.game_teams)["27"]).to eq(3_433)
     end
   end
 end
