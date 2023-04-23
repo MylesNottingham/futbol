@@ -152,6 +152,42 @@ class StatTracker
   end
 
   ### SEASON STATS ###
+  def winningest_coach(season)
+    if season == "20122013"
+      game_team_season = "2012"
+    elsif season == "20132014"
+      game_team_season = "2013"
+    elsif season == "20142015"
+      game_team_season = "2014"
+    elsif season == "20152016"
+      game_team_season = "2015"
+    elsif season == "20162017"
+      game_team_season = "2016"
+    elsif season == "20172018"
+      game_team_season = "2017"
+    elsif season == "20182019"
+      game_team_season = "2018"
+    end
+
+    season_game_teams = game_teams.find_all do |game|
+      game.game_id.start_with?(game_team_season)
+    end
+
+    coach_wins = Hash.new(0)
+
+    season_game_teams.each do |game|
+      if game.result == "WIN"
+        coach_wins[game.head_coach] += 1
+      end
+    end
+
+    winningest_coach = coach_wins.max_by do |coach, wins|
+      wins
+    end
+
+    winningest_coach[0]
+  end
+
   def most_accurate_team(season)
     filtered_game_teams = filter_game_teams(generate_game_ids(games_by_season(season)))
 
@@ -196,7 +232,7 @@ class StatTracker
   def percentage(stats)
     (stats / number_of_games).round(2)
   end
-  
+
   def number_of_games
     @games.count.to_f
   end
