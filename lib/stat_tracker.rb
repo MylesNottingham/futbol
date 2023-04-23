@@ -40,27 +40,24 @@ class StatTracker
   end
 
   def percentage_home_wins
-    number_of_games = @games.count.to_f
     home_wins = @games.find_all do |game|
       game.home_goals > game.away_goals
     end
-    (home_wins.count / number_of_games).round(2)
+    percentage(home_wins.count)
   end
 
   def percentage_visitor_wins
-    number_of_games = @games.count.to_f
     visitor_wins = @games.find_all do |game|
       game.home_goals < game.away_goals
     end
-    (visitor_wins.count / number_of_games).round(2)
+    percentage(visitor_wins.count)
   end
 
   def percentage_ties
-    number_of_games = @games.count.to_f
     tie_games = @games.find_all do |game|
       game.home_goals == game.away_goals
     end
-    (tie_games.count / number_of_games).round(2)
+    percentage(tie_games.count)
   end
 
   def count_of_games_by_season
@@ -71,11 +68,10 @@ class StatTracker
   end
 
   def average_goals_per_game
-    number_of_games = @games.count.to_f
     average_goals = @games.map do |game|
       game.away_goals + game.home_goals
     end
-    (average_goals.sum.to_f / number_of_games).round(2)
+    percentage(average_goals.sum.to_f)
   end
 
   def average_goals_by_season
@@ -197,6 +193,14 @@ class StatTracker
   end
 
   ### HELPER METHODS ###
+  def percentage(stats)
+    (stats / number_of_games).round(2)
+  end
+  
+  def number_of_games
+    @games.count.to_f
+  end
+
   def total_games_played_by_team_in_games
     total_games_played_by_team = Hash.new(0)
 

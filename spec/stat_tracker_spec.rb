@@ -166,6 +166,20 @@ RSpec.describe StatTracker do
   end
 
   ### HELPER METHODS ###
+  describe "#percentage(stats)" do
+    it "gives a float to the nearest 100th percent" do
+      expect(@stat_tracker.percentage(2687)).to eq(0.36)
+      expect(@stat_tracker.percentage(10322)).to eq(1.39)
+      expect(@stat_tracker.percentage(19881)).to eq(2.67)
+    end
+  end
+  
+  describe "#number_of_games" do
+    it "can get the total number of games as a float" do
+      expect(@stat_tracker.number_of_games).to eq(7441.0)
+    end
+  end
+  
   describe "#total_games_played_by_team_in_games" do
     it "can find the total number of games played by a team" do
       expect(@stat_tracker.total_games_played_by_team_in_games).to be_a(Hash)
