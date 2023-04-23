@@ -141,6 +141,13 @@ RSpec.describe StatTracker do
   end
 
   ### SEASON STATS ###
+  describe "#winningest_coach(season)" do
+    it "return the name of the coach with the best win percentage for the season" do
+      expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
+      expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
+    end
+  end
+
   describe "#most_accurate_team(season)" do
     it "can find the team with the best shooting percentage in season" do
       expect(@stat_tracker.most_accurate_team("20122013")).to eq("DC United")
@@ -173,13 +180,13 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.percentage(19881)).to eq(2.67)
     end
   end
-  
+
   describe "#number_of_games" do
     it "can get the total number of games as a float" do
       expect(@stat_tracker.number_of_games).to eq(7441.0)
     end
   end
-  
+
   describe "#total_games_played_by_team_in_games" do
     it "can find the total number of games played by a team" do
       expect(@stat_tracker.total_games_played_by_team_in_games).to be_a(Hash)
