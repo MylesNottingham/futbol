@@ -188,6 +188,48 @@ class StatTracker
     winningest_coach[0]
   end
 
+  def worst_coach(season)
+    if season == "20122013"
+      game_team_season = "2012"
+    elsif season == "20132014"
+      game_team_season = "2013"
+    elsif season == "20142015"
+      game_team_season = "2014"
+    elsif season == "20152016"
+      game_team_season = "2015"
+    elsif season == "20162017"
+      game_team_season = "2016"
+    elsif season == "20172018"
+      game_team_season = "2017"
+    elsif season == "20182019"
+      game_team_season = "2018"
+    end
+
+    season_game_teams = game_teams.find_all do |game|
+      game.game_id.start_with?(game_team_season)
+    end
+
+    games_coached = Hash.new(0)
+
+    game_teams.each do |game|
+      games_coached[game.head_coach] += 1
+    end
+
+    coach_losses = Hash.new(0)
+
+    season_game_teams.each do |game|
+      if game.result == "LOSS"
+        coach_losses[game.head_coach] += 1
+      end
+    end
+
+    losingest_coach = coach_losses.min_by do |coach, losses|
+      (losses.to_f / games_coached[coach])
+    end
+
+    losingest_coach[0]
+  end
+
   def most_accurate_team(season)
     filtered_game_teams = filter_game_teams(generate_game_ids(games_by_season(season)))
 
