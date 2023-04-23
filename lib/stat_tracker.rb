@@ -175,6 +175,12 @@ class StatTracker
 
     coach_wins = Hash.new(0)
 
+    games_coached_that_season = Hash.new(0)
+
+    season_game_teams.each do |game|
+      games_coached_that_season[game.head_coach] += 1
+    end
+
     season_game_teams.each do |game|
       if game.result == "WIN"
         coach_wins[game.head_coach] += 1
@@ -182,7 +188,7 @@ class StatTracker
     end
 
     winningest_coach = coach_wins.max_by do |coach, wins|
-      wins
+      (wins.to_f / games_coached_that_season[coach]).round(2)
     end
 
     winningest_coach[0]
@@ -209,10 +215,10 @@ class StatTracker
       game.game_id.start_with?(game_team_season)
     end
 
-    games_coached = Hash.new(0)
+    games_coached_that_season = Hash.new(0)
 
-    game_teams.each do |game|
-      games_coached[game.head_coach] += 1
+    season_game_teams.each do |game|
+      games_coached_that_season[game.head_coach] += 1
     end
 
     coach_losses = Hash.new(0)
@@ -223,11 +229,18 @@ class StatTracker
       end
     end
 
-    losingest_coach = coach_losses.min_by do |coach, losses|
-      (losses.to_f / games_coached[coach])
+    coach_loss_percentage = Hash.new(0)
+
+    coach_losses.each do |coach, losses|
+      coach_loss_percentage[coach] = ((losses.to_f) / (games_coached_that_season[coach].to_f)).round(2)
     end
 
-    losingest_coach[0]
+    losingest_coach = coach_loss_percentage.max_by do |coach, loss_percentage|
+      loss_percentage
+    end
+    require 'pry'; binding.pry
+
+    losingest_coach
   end
 
   def most_accurate_team(season)
