@@ -196,6 +196,7 @@ class StatTracker
   def percentage(stats)
     (stats / number_of_games).round(2)
   end
+  
   def number_of_games
     @games.count.to_f
   end
