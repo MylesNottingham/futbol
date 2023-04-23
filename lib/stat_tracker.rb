@@ -215,53 +215,97 @@ class StatTracker
       game.game_id.start_with?(game_team_season)
     end
 
+    coach_wins = Hash.new(0)
+
     games_coached_that_season = Hash.new(0)
 
     season_game_teams.each do |game|
       games_coached_that_season[game.head_coach] += 1
     end
 
-    coach_losses = Hash.new(0)
-
     season_game_teams.each do |game|
-      if game.result == "LOSS"
-        coach_losses[game.head_coach] += 1
+      if game.result == "WIN"
+        coach_wins[game.head_coach] += 1
       end
     end
 
-    coach_loss_percentage = Hash.new(0)
+    coach_win_percentage = Hash.new(0.0)
 
-    coach_losses.each do |coach, losses|
-      coach_loss_percentage[coach] = ((losses.to_f) / (games_coached_that_season[coach].to_f)).round(2)
-    end
-
-    losingest_coach = coach_loss_percentage.max_by do |coach, loss_percentage|
-      loss_percentage
+    coach_wins.each do |coach, wins|
+      coach_win_percentage[coach] = (wins.to_f / games_coached_that_season[coach]).round(2)
     end
     require 'pry'; binding.pry
-
-    losingest_coach
+    worst_coach[0]
   end
 
-  def most_accurate_team(season)
-    filtered_game_teams = filter_game_teams(generate_game_ids(games_by_season(season)))
+  # def worst_coach(season)
+  #   if season == "20122013"
+  #     game_team_season = "2012"
+  #   elsif season == "20132014"
+  #     game_team_season = "2013"
+  #   elsif season == "20142015"
+  #     game_team_season = "2014"
+  #   elsif season == "20152016"
+  #     game_team_season = "2015"
+  #   elsif season == "20162017"
+  #     game_team_season = "2016"
+  #   elsif season == "20172018"
+  #     game_team_season = "2017"
+  #   elsif season == "20182019"
+  #     game_team_season = "2018"
+  #   end
 
-    most_accurate_team_id = find_total_shots_by_team(filtered_game_teams).max_by do |team_id, shots|
-      find_total_goals_by_team(filtered_game_teams)[team_id] / shots.to_f
-    end[0]
+  #   season_game_teams = game_teams.find_all do |game|
+  #     game.game_id.start_with?(game_team_season)
+  #   end
 
-    get_team_name(most_accurate_team_id)
-  end
+  #   games_coached_that_season = Hash.new(0)
 
-  def least_accurate_team(season)
-    filtered_game_teams = filter_game_teams(generate_game_ids(games_by_season(season)))
+  #   season_game_teams.each do |game|
+  #     games_coached_that_season[game.head_coach] += 1.00
+  #   end
 
-    least_accurate_team_id = find_total_shots_by_team(filtered_game_teams).min_by do |team_id, shots|
-      find_total_goals_by_team(filtered_game_teams)[team_id] / shots.to_f
-    end[0]
+  #   coach_losses = Hash.new(0)
 
-    get_team_name(least_accurate_team_id)
-  end
+  #   season_game_teams.each do |game|
+  #     if game.result == "WIN"
+  #       coach_losses[game.head_coach] += 1.00
+  #     end
+  #   end
+
+  #   coach_loss_percentage = Hash.new(0)
+
+  #   coach_losses.each do |coach, losses|
+  #     coach_loss_percentage[coach] = (losses / games_coached_that_season[coach]).round(2)
+  #   end
+  #   require 'pry'; binding.pry
+
+  #   losingest_coach = coach_loss_percentage.max_by do |coach, loss_percentage|
+  #     loss_percentage
+  #   end
+
+  #   losingest_coach
+  # end
+
+  # def most_accurate_team(season)
+  #   filtered_game_teams = filter_game_teams(generate_game_ids(games_by_season(season)))
+
+  #   most_accurate_team_id = find_total_shots_by_team(filtered_game_teams).max_by do |team_id, shots|
+  #     find_total_goals_by_team(filtered_game_teams)[team_id] / shots.to_f
+  #   end[0]
+
+  #   get_team_name(most_accurate_team_id)
+  # end
+
+  # def least_accurate_team(season)
+  #   filtered_game_teams = filter_game_teams(generate_game_ids(games_by_season(season)))
+
+  #   least_accurate_team_id = find_total_shots_by_team(filtered_game_teams).min_by do |team_id, shots|
+  #     find_total_goals_by_team(filtered_game_teams)[team_id] / shots.to_f
+  #   end[0]
+
+  #   get_team_name(least_accurate_team_id)
+  # end
 
   def most_tackles(season)
     filtered_game_teams = filter_game_teams(generate_game_ids(games_by_season(season)))
