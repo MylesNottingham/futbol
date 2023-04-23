@@ -143,8 +143,8 @@ RSpec.describe StatTracker do
   ### SEASON STATS ###
   describe "#winningest_coach(season)" do
     it "return the name of the coach with the best win percentage for the season" do
-      expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
-      expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
+      expect(@stat_tracker.winningest_coach("20132014")).to eq("Claude Julien")
+      expect(@stat_tracker.winningest_coach("20142015")).to eq("Alain Vigneault")
     end
   end
 
