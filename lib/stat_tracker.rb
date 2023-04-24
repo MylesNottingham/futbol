@@ -160,9 +160,7 @@ class StatTracker
 
     season_games.each do |game|
       games_coached_for_season[game.head_coach] += 1
-      if game.result == "WIN"
-        coach_wins_for_season[game.head_coach] += 1
-      end
+      coach_wins_for_season[game.head_coach] += 1 if game.result == "WIN"
     end
 
     winningest_coach = coach_wins_for_season.max_by do |coach, wins|
@@ -176,7 +174,6 @@ class StatTracker
     season_games = filter_game_teams(generate_game_ids(games_by_season(season)))
 
     games_coached_for_season = Hash.new(0)
-
     coach_wins_for_season = Hash.new(0)
 
     season_games.each do |game|
