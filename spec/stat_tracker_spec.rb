@@ -136,11 +136,25 @@ RSpec.describe StatTracker do
 
   describe "#lowest_scoring_home_team" do
     it "returns team name with the lowest average score per game across all seasons when they are at home." do
-      expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("Utah Royals FC")
     end
   end
 
   ### SEASON STATS ###
+  describe "#winningest_coach(season)" do
+    it "return the name of the coach with the best win percentage for the season" do
+      expect(@stat_tracker.winningest_coach("20132014")).to eq("Claude Julien")
+      expect(@stat_tracker.winningest_coach("20142015")).to eq("Alain Vigneault")
+    end
+  end
+
+  describe "#worst_coach(season)" do
+    it "return the name of the coach with the worst win percentage for the season" do
+      expect(@stat_tracker.worst_coach("20132014")).to eq("Peter Laviolette")
+      expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
+    end
+  end
+
   describe "#most_accurate_team(season)" do
     it "can find the team with the best shooting percentage in season" do
       expect(@stat_tracker.most_accurate_team("20122013")).to eq("DC United")
@@ -169,17 +183,17 @@ RSpec.describe StatTracker do
   describe "#percentage(stats)" do
     it "gives a float to the nearest 100th percent" do
       expect(@stat_tracker.percentage(2687)).to eq(0.36)
-      expect(@stat_tracker.percentage(10322)).to eq(1.39)
-      expect(@stat_tracker.percentage(19881)).to eq(2.67)
+      expect(@stat_tracker.percentage(10_322)).to eq(1.39)
+      expect(@stat_tracker.percentage(19_881)).to eq(2.67)
     end
   end
-  
+
   describe "#number_of_games" do
     it "can get the total number of games as a float" do
       expect(@stat_tracker.number_of_games).to eq(7441.0)
     end
   end
-  
+
   describe "#total_games_played_by_team_in_games" do
     it "can find the total number of games played by a team" do
       expect(@stat_tracker.total_games_played_by_team_in_games).to be_a(Hash)
