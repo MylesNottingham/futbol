@@ -178,11 +178,7 @@ class StatTracker
 
     season_games.each do |game|
       games_coached_for_season[game.head_coach] += 1
-      if game.result == "WIN"
-        coach_wins_for_season[game.head_coach] += 1
-      else
-        coach_wins_for_season[game.head_coach] += 0
-      end
+      coach_wins_for_season[game.head_coach] += game.result == "WIN" ? 1: 0
     end
 
     worst_coach = coach_wins_for_season.min_by do |coach, wins|
